@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+        .emerald-gradient {
+            background: linear-gradient(135deg, #004D40 0%, #002B24 100%);
+        }
+        .matte-gold-border {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        body {
+            background-color: #fcf9f8;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#444746",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#004d40",
+                        "on-primary-container": "#7ebdac",
+                        "inverse-surface": "#313030",
+                        "outline-variant": "#bfc9c4",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#94d3c1",
+                        "background": "#fcf9f8",
+                        "on-surface": "#1c1b1b",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#414443",
+                        "surface-tint": "#29695b",
+                        "secondary": "#735c00",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-surface-variant": "#3f4945",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-primary-fixed-variant": "#065043",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#aeb1af",
+                        "tertiary-fixed": "#e1e3e1",
+                        "surface-dim": "#dcd9d9",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#94d3c1",
+                        "on-primary-fixed": "#00201a",
+                        "secondary-fixed": "#ffe088",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#707975",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-secondary-container": "#745c00",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#c5c7c5",
+                        "on-background": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-container": "#fed65b",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "primary-fixed": "#afefdd",
+                        "primary": "#00342b",
+                        "surface-container-high": "#eae7e7",
+                        "on-tertiary-fixed": "#191c1b",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "on-error": "#ffffff",
+                        "tertiary": "#2b2e2d",
+                        "on-secondary-fixed": "#241a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Manrope"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed-dim selection:text-primary">
+<!-- Top Navigation Anchor Shell -->
+<header class="bg-surface sticky top-0 z-40 shadow-sm flex justify-between items-center w-full px-margin-mobile py-4">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Profile" class="w-12 h-12 rounded-full object-cover border-2 border-secondary" data-alt="A professional close-up portrait of a modern Muslim man in his late 20s with a neat beard and professional attire. He is looking directly at the camera with a friendly and warm expression. The background is a blurred, high-tech digital environment with soft teal and gold ambient lighting, creating a luxury modern Islamic aesthetic. The lighting is soft and flattering, emphasizing a serene and intelligent atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuX9N3DBlHhHLJnxo3hmEM_Y6DQDdgdwjiqRD2uda-fOm9UULKo-RHtioyMrg1xxsomxaKLNEQRPU-LolcX_My31n4ZQg94BfH_gKJDik11_2kERiaNWvKJs0tRbRPX7lCGdAGlW0-hPzPkz_7Zyy29Z5MReegA3RbxRo2EcRq4887HdL3o6LUJ73nNY8GQa44XfAHOjFnV9o-70YBKoBZgnrPEUOlbqoZ_kiRZVxaQS59ZK_3WbKhUjt6JbNNNOTdx-LJ9MlakBkO"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Ассаламу алейкум, Нурильбек!</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Понедельник, 12 Рамадан</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile pb-32">
+<!-- Daily Hasanat & Habit Tracker -->
+<section class="mt-stack-lg mb-stack-lg">
+<div class="bg-white rounded-[24px] p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] matte-gold-border flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-md text-headline-md text-primary">Daily Hasanat</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">3/5 daily goals achieved</p>
+<div class="flex gap-2 mt-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-surface-variant"></span>
+<span class="w-2 h-2 rounded-full bg-surface-variant"></span>
+</div>
+</div>
+<div class="relative w-20 h-20">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#F2F4F2" stroke-dasharray="100, 100" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#D4AF37" stroke-dasharray="60, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-label-md text-label-md text-secondary">60%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Mentor Chat Section -->
+<section class="mb-stack-lg">
+<div class="emerald-gradient rounded-[24px] p-8 matte-gold-border relative overflow-hidden group">
+<!-- Atmospheric background element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary opacity-5 blur-[100px] pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="mb-6 p-4 bg-white/10 rounded-full backdrop-blur-md">
+<span class="material-symbols-outlined text-[48px] text-secondary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-white mb-2">Ваш AI Наставник</h3>
+<p class="font-body-lg text-body-lg text-primary-fixed-dim mb-8 max-w-md">Нужен совет в сложной ситуации? Мы здесь, чтобы помочь на пути веры и жизни.</p>
+<button class="w-full md:w-auto bg-secondary hover:bg-secondary-container text-on-secondary-fixed px-8 py-4 rounded-xl font-label-md text-label-md transition-all duration-300 transform hover:scale-[1.02] gold-glow flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">chat_bubble</span>
+                        Поговорить со старшим братом (Чат без стыда)
+                    </button>
+<p class="mt-4 font-label-sm text-label-sm text-on-primary-container opacity-80">
+                        Задай любой вопрос анонимно и без осуждения
+                    </p>
+</div>
+</div>
+</section>
+<!-- Featured Actions Grid -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-white p-5 rounded-[24px] shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-transparent hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-primary mb-3">auto_awesome</span>
+<h4 class="font-label-md text-label-md text-primary mb-1">Дуа дня</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Просьбы об облегчении</p>
+</div>
+<div class="bg-white p-5 rounded-[24px] shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-transparent hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-primary mb-3">menu_book</span>
+<h4 class="font-label-md text-label-md text-primary mb-1">Коран</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Продолжить суру «Ан-Нур»</p>
+</div>
+<div class="bg-white p-5 rounded-[24px] shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-transparent hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-primary mb-3">schedule</span>
+<h4 class="font-label-md text-label-md text-primary mb-1">Намаз</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Аср через 1ч 12мин</p>
+</div>
+<div class="bg-white p-5 rounded-[24px] shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-transparent hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-primary mb-3">volunteer_activism</span>
+<h4 class="font-label-md text-label-md text-primary mb-1">Садака</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Поддержать фонд</p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface shadow-[0px_-4px_20px_rgba(0,0,0,0.04)] border-t border-outline-variant rounded-t-xl">
+<!-- Домой (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-0.5">Домой</span>
+</a>
+<!-- Карта халяль -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">mosque</span>
+<span class="font-label-sm text-label-sm mt-0.5">Карта халяль</span>
+</a>
+<!-- Сканер -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">document_scanner</span>
+<span class="font-label-sm text-label-sm mt-0.5">Сканер</span>
+</a>
+<!-- Профиль -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-0.5">Профиль</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            el.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(section);
+        });
+    </script>
+</body></html>
