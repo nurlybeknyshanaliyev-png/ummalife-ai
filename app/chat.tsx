@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 import { Stack } from 'expo-router';
 import { Send, User, Bot, Shield } from 'lucide-react-native';
-import { Colors, Spacing, BorderRadius } from '../constants/Theme';
-import { ThemedText } from '../components/ThemedText';
-import { ThemedView } from '../components/ThemedView';
+import { Colors, Spacing, BorderRadius } from '@/constants/Theme';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Message {

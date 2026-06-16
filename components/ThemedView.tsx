@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { Colors } from '../constants/Theme';
+import { Colors } from '@/constants/Theme';
 
 interface ThemedViewProps extends ViewProps {
   backgroundColor?: keyof typeof Colors;

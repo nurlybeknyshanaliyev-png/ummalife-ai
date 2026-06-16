@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { useRouter, Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Bell, MessageSquare, Sparkles, BookOpen, Clock, Heart } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle } from 'react-native-svg';
-import { Colors, Spacing, BorderRadius } from '../constants/Theme';
-import { ThemedText } from '../components/ThemedText';
+import { Colors, Spacing, BorderRadius } from '@/constants/Theme';
+import { ThemedText } from '@/components/ThemedText';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -113,9 +113,9 @@ export default function HomeScreen() {
 
       {/* Tabs Link for Navigator */}
       <View style={styles.footer}>
-         <Link href="/(tabs)/" asChild>
-            <TouchableOpacity><ThemedText type="labelSM" color="onSurfaceVariant">Открыть Табы</ThemedText></TouchableOpacity>
-         </Link>
+         <TouchableOpacity onPress={() => router.push('/(tabs)/home')}>
+            <ThemedText type="labelSM" color="onSurfaceVariant">Открыть Табы</ThemedText>
+         </TouchableOpacity>
       </View>
     </ScrollView>
   );

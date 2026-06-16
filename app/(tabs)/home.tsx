@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { Bell, MessageSquare, Sparkles, BookOpen, Clock, Heart } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle } from 'react-native-svg';
-import { Colors, Spacing, BorderRadius } from '../../constants/Theme';
+import { Colors, Spacing, BorderRadius } from '@/constants/Theme';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 
