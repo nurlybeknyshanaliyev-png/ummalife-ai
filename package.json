@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@babel/plugin-transform-class-properties": "^7.29.7",
+    "@babel/plugin-transform-private-methods": "^7.29.7",
+    "@babel/plugin-transform-private-property-in-object": "^7.29.7",
     "@expo-google-fonts/manrope": "^0.4.2",
     "@expo-google-fonts/plus-jakarta-sans": "^0.4.2",
     "babel-preset-expo": "~54.0.10",
