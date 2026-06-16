@@ -1,0 +1,20 @@
+npm warn exec The following package was not found and will be installed: serve@14.2.6
+ INFO  Accepting connections at http://localhost:8081
+ HTTP  6/16/2026 7:00:00 AM ::1 GET /
+ HTTP  6/16/2026 7:00:00 AM ::1 Returned 200 in 289 ms
+ HTTP  6/16/2026 7:00:00 AM ::1 GET /_expo/static/js/web/entry-ea10f600861d4875757cff8f25cba465.js
+ HTTP  6/16/2026 7:00:00 AM ::1 Returned 200 in 19 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/manrope/400Regular/Manrope_400Regular.8ca1a84037fdb644723129315c390ad9.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/manrope/500Medium/Manrope_500Medium.de7b3026c153d63d5732582887fecbf4.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/manrope/600SemiBold/Manrope_600SemiBold.80cb1b1a8ba262608706cb7f2b017835.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/manrope/700Bold/Manrope_700Bold.8e8fe178c0f147b91ed2a2b3097ad8a4.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/plus-jakarta-sans/400Regular/PlusJakartaSans_400Regular.dd3a1370a03dc0f2d7d093bd0ffe7c0b.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/plus-jakarta-sans/500Medium/PlusJakartaSans_500Medium.0a825b3e08f62af5a9bc9130843b12ff.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 11 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 11 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 10 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 10 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 11 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 10 ms
+ HTTP  6/16/2026 7:00:01 AM ::1 GET /assets/node_modules/@expo-google-fonts/plus-jakarta-sans/600SemiBold/PlusJakartaSans_600SemiBold.73de6fb49299ccb6478575127008c120.ttf
+ HTTP  6/16/2026 7:00:01 AM ::1 Returned 200 in 6 ms
