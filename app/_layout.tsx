@@ -14,6 +14,17 @@ import {
   PlusJakartaSans_600SemiBold
 } from '@expo-google-fonts/plus-jakarta-sans';
 import * as SplashScreen from 'expo-splash-screen';
+import { Platform } from 'react-native';
+
+// Polyfill DOMException for environments where it is missing (like some Hermes versions on mobile)
+if (Platform.OS !== 'web' && typeof global.DOMException === 'undefined') {
+  (global as any).DOMException = class DOMException extends Error {
+    constructor(message: string, name: string) {
+      super(message);
+      this.name = name;
+    }
+  };
+}
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
