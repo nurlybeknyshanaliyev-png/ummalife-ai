@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "UmmaLife AI",
-    "slug": "umma-life-ai",
+    "name": "Ummalife.ai",
+    "slug": "ummalife-ai-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,6 +17,11 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
+    },
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FCF9F8"
     },
     "web": {
       "favicon": "./assets/favicon.png",
