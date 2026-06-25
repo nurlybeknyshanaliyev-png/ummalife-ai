@@ -42,7 +42,7 @@ export default function HomeScreen() {
             <View style={styles.onlineStatus} />
           </View>
           <View>
-            <ThemedText type="headlineMobile" color="primary">Ассаламу алейкум, Нурильбек!</ThemedText>
+            <ThemedText type="headlineMobile" color="primary">Ассаламу алейкум, Нурлыбек!</ThemedText>
             <ThemedText type="labelSM" color="onSurfaceVariant">Понедельник, 12 Рамадан</ThemedText>
           </View>
         </View>

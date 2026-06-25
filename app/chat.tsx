@@ -116,13 +116,14 @@ export default function ChatScreen() {
     }, 1500);
   }, [inputText, dailyCount, isTyping]);
 
-  const renderMessage = useCallback(({ item }: { item: Message }) => {
+  const renderMessage = ({ item }: { item: Message }) => {
     const isAi = item.sender === 'ai';
     return (
-      <View style={[
-        styles.messageWrapper,
-        isAi ? styles.aiWrapper : styles.userWrapper
-      ]}>
+      <View
+        style={[
+          styles.messageWrapper,
+          isAi ? styles.aiWrapper : styles.userWrapper
+        ]}>
         {isAi && (
           <View style={styles.avatar}>
             <Bot size={20} color={Colors.secondary} />
@@ -144,7 +145,7 @@ export default function ChatScreen() {
         )}
       </View>
     );
-  }, []);
+  };
 
   return (
     <ThemedView style={styles.container}>
@@ -187,11 +188,18 @@ export default function ChatScreen() {
         ref={flatListRef}
         data={messages}
         renderItem={renderMessage}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
-        onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-        removeClippedSubviews={Platform.OS === 'android'}
+        onContentSizeChange={() => {
+           if (messages.length > 0) {
+             flatListRef.current?.scrollToEnd({ animated: true });
+           }
+        }}
+        removeClippedSubviews={false}
         keyboardShouldPersistTaps="handled"
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
       />
 
       {isTyping && (

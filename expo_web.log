@@ -5,3 +5,6 @@ Logs for your project will appear below.
 Web ./index.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
 Web Bundled 3149ms index.js (2576 modules)
  LOG  [web] Logs will appear in the browser console
+Web ./index.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 1812ms index.js (1 module)
+ LOG  [web] Logs will appear in the browser console
