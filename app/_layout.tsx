@@ -31,7 +31,12 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded || error) {
-      SplashScreen.hideAsync();
+      // Delay hiding splash screen slightly to ensure the first frame is rendered
+      const hideSplash = async () => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await SplashScreen.hideAsync();
+      };
+      hideSplash();
     }
   }, [loaded, error]);
 
@@ -41,14 +46,17 @@ export default function RootLayout() {
 
   return (
     <>
-      <Stack>
+      <Stack screenOptions={{
+        contentStyle: { backgroundColor: '#FCF9F8' }, // Match Theme.background
+        animation: 'fade'
+      }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="chat" options={{
           presentation: 'modal',
           headerShown: true,
         }} />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
-import { Colors } from '../../constants/Theme';
+import { Colors } from '@/constants/Theme';
 
 export default function PlaceholderScreen() {
   return (

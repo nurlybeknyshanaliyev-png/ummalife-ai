@@ -1,18 +1,36 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Bell, MessageSquare, Sparkles, BookOpen, Clock, Heart } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle } from 'react-native-svg';
-import { Colors, Spacing, BorderRadius } from '../../constants/Theme';
-import { ThemedText } from '../../components/ThemedText';
-import { ThemedView } from '../../components/ThemedView';
+import { Colors, Spacing, BorderRadius } from '@/constants/Theme';
+import { ThemedText } from '@/components/ThemedText';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    // Simulate a brief check for data/assets to ensure smooth transition
+    const timer = setTimeout(() => setIsReady(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isReady) {
+    return (
+      <View style={[styles.container, styles.loadingCenter]}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      keyboardShouldPersistTaps="handled"
+    >
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.profileSection}>
@@ -24,7 +42,7 @@ export default function HomeScreen() {
             <View style={styles.onlineStatus} />
           </View>
           <View>
-            <ThemedText type="headlineMobile" color="primary">Ассаламу алейкум, Нурильбек!</ThemedText>
+            <ThemedText type="headlineMobile" color="primary">Ассаламу алейкум, Нурлыбек!</ThemedText>
             <ThemedText type="labelSM" color="onSurfaceVariant">Понедельник, 12 Рамадан</ThemedText>
           </View>
         </View>
@@ -36,8 +54,8 @@ export default function HomeScreen() {
       {/* Daily Hasanat */}
       <View style={styles.hasanatCard}>
         <View style={styles.hasanatInfo}>
-          <ThemedText type="headlineMD" color="primary">Daily Hasanat</ThemedText>
-          <ThemedText type="bodyMD" color="onSurfaceVariant">3/5 daily goals achieved</ThemedText>
+          <ThemedText type="headlineMD" color="primary">Ежедневный Хасанат</ThemedText>
+          <ThemedText type="bodyMD" color="onSurfaceVariant">3/5 целей выполнено</ThemedText>
           <View style={styles.dotContainer}>
             {[1, 2, 3].map(i => <View key={i} style={[styles.dot, styles.dotActive]} />)}
             {[4, 5].map(i => <View key={i} style={styles.dot} />)}
@@ -111,6 +129,13 @@ export default function HomeScreen() {
         <ActionCard icon={<Clock size={24} color={Colors.primary} />} title="Намаз" subtitle="Аср через 1ч 12мин" />
         <ActionCard icon={<Heart size={24} color={Colors.primary} />} title="Садака" subtitle="Поддержать фонд" />
       </View>
+
+      {/* Tabs Link for Navigator */}
+      <View style={styles.footer}>
+         <TouchableOpacity onPress={() => router.push('/(tabs)/home')}>
+            <ThemedText type="labelSM" color="onSurfaceVariant">Открыть Меню</ThemedText>
+         </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -129,6 +154,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  loadingCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   contentContainer: {
     paddingBottom: 100,
@@ -286,5 +315,9 @@ const styles = StyleSheet.create({
   },
   actionIcon: {
     marginBottom: 12,
+  },
+  footer: {
+    padding: 20,
+    alignItems: 'center',
   }
 });

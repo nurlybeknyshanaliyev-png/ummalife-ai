@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,67 +7,123 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Switch
+  Switch,
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import { Stack } from 'expo-router';
-import { Send, User, Bot, Shield } from 'lucide-react-native';
-import { Colors, Spacing, BorderRadius } from '../constants/Theme';
-import { ThemedText } from '../components/ThemedText';
-import { ThemedView } from '../components/ThemedView';
+import { Send, User, Bot, Shield, AlertCircle } from 'lucide-react-native';
+import { Colors, Spacing, BorderRadius } from '@/constants/Theme';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Message {
   id: string;
   text: string;
   sender: 'user' | 'ai';
-  timestamp: Date;
+  timestamp: string; // ISO string to avoid non-configurable date objects in some engines
 }
+
+const MAX_DAILY_QUESTIONS = 5;
+const STORAGE_KEY_DAILY_COUNT = 'daily_ai_questions_count';
+const STORAGE_KEY_LAST_DATE = 'daily_ai_questions_date';
 
 export default function ChatScreen() {
   const insets = useSafeAreaInsets();
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
+      id: 'initial-ai-msg',
       text: 'Ассаламу алейкум! Я ваш AI-Наставник. Чем я могу помочь вам сегодня?',
       sender: 'ai',
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
     },
   ]);
   const [inputText, setInputText] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
+  const [dailyCount, setDailyCount] = useState(0);
+  const [isTyping, setIsAiTyping] = useState(false);
+  const flatListRef = useRef<FlatList>(null);
 
-  const sendMessage = () => {
-    if (inputText.trim() === '') return;
+  // Load daily limits
+  useEffect(() => {
+    loadDailyLimits();
+  }, []);
 
+  const loadDailyLimits = async () => {
+    try {
+      const today = new Date().toLocaleDateString();
+      const lastDate = await AsyncStorage.getItem(STORAGE_KEY_LAST_DATE);
+
+      if (lastDate !== today) {
+        await AsyncStorage.setItem(STORAGE_KEY_LAST_DATE, today);
+        await AsyncStorage.setItem(STORAGE_KEY_DAILY_COUNT, '0');
+        setDailyCount(0);
+      } else {
+        const count = await AsyncStorage.getItem(STORAGE_KEY_DAILY_COUNT);
+        setDailyCount(parseInt(count || '0', 10));
+      }
+    } catch (e) {
+      console.error('Failed to load daily limits', e);
+    }
+  };
+
+  const incrementDailyCount = async () => {
+    try {
+      const newCount = dailyCount + 1;
+      await AsyncStorage.setItem(STORAGE_KEY_DAILY_COUNT, newCount.toString());
+      setDailyCount(newCount);
+    } catch (e) {
+      console.error('Failed to increment daily limits', e);
+    }
+  };
+
+  const sendMessage = useCallback(async () => {
+    if (inputText.trim() === '' || isTyping) return;
+
+    if (dailyCount >= MAX_DAILY_QUESTIONS) {
+      Alert.alert(
+        'Лимит исчерпан',
+        'Брат, вы достигли дневного лимита (5 вопросов). Пожалуйста, возвращайтесь завтра или подпишитесь на Premium.'
+      );
+      return;
+    }
+
+    const userMsgId = `user-${Date.now()}`;
     const newMessage: Message = {
-      id: Date.now().toString(),
-      text: inputText,
+      id: userMsgId,
+      text: inputText.trim(),
       sender: 'user',
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
     };
 
-    setMessages([...messages, newMessage]);
+    setMessages(prev => [...prev, newMessage]);
     setInputText('');
+    setIsAiTyping(true);
+    await incrementDailyCount();
 
-    // Simulate AI response
+    // Simulate AI response logic strictly in Russian
     setTimeout(() => {
       const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: 'Благодарю за ваш вопрос. Как ваш наставник, я постараюсь дать совет, основанный на мудрости и знаниях.',
+        id: `ai-${Date.now()}`,
+        text: 'Благодарю за ваш вопрос. Как ваш наставник, я подготовил ответ, основанный на исламских ценностях и мудрости. Важно помнить, что каждое испытание — это возможность для духовного роста.',
         sender: 'ai',
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       };
       setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
-  };
+      setIsAiTyping(false);
+    }, 1500);
+  }, [inputText, dailyCount, isTyping]);
 
   const renderMessage = ({ item }: { item: Message }) => {
     const isAi = item.sender === 'ai';
     return (
-      <View style={[
-        styles.messageWrapper,
-        isAi ? styles.aiWrapper : styles.userWrapper
-      ]}>
+      <View
+        style={[
+          styles.messageWrapper,
+          isAi ? styles.aiWrapper : styles.userWrapper
+        ]}>
         {isAi && (
           <View style={styles.avatar}>
             <Bot size={20} color={Colors.secondary} />
@@ -103,6 +159,18 @@ export default function ChatScreen() {
         }}
       />
 
+      <View style={styles.limitInfo}>
+        <ThemedText type="labelSM" color="onSurfaceVariant">
+          Вопросов сегодня: {dailyCount} / {MAX_DAILY_QUESTIONS}
+        </ThemedText>
+        {dailyCount >= MAX_DAILY_QUESTIONS && (
+          <View style={styles.limitWarning}>
+            <AlertCircle size={14} color={Colors.error} />
+            <ThemedText type="labelSM" style={{ color: Colors.error, marginLeft: 4 }}>Лимит достигнут</ThemedText>
+          </View>
+        )}
+      </View>
+
       <View style={styles.anonymousToggle}>
         <View style={styles.toggleInfo}>
           <Shield size={18} color={Colors.secondary} />
@@ -117,28 +185,55 @@ export default function ChatScreen() {
       </View>
 
       <FlatList
+        ref={flatListRef}
         data={messages}
         renderItem={renderMessage}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
+        onContentSizeChange={() => {
+           if (messages.length > 0) {
+             flatListRef.current?.scrollToEnd({ animated: true });
+           }
+        }}
+        removeClippedSubviews={false}
+        keyboardShouldPersistTaps="handled"
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
       />
+
+      {isTyping && (
+        <View style={styles.typingContainer}>
+           <ActivityIndicator size="small" color={Colors.primary} />
+           <ThemedText type="labelSM" style={{ marginLeft: 8 }}>Наставник думает...</ThemedText>
+        </View>
+      )}
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
       >
-        <View style={[styles.inputContainer, { marginBottom: Math.max(insets.bottom, 16) }]}>
+        <View style={[styles.inputContainer, { paddingBottom: Math.max(insets.bottom, 16) }]}>
           <TextInput
-            style={styles.input}
-            placeholder="Задайте любой вопрос..."
+            style={[
+              styles.input,
+              dailyCount >= MAX_DAILY_QUESTIONS && styles.inputDisabled
+            ]}
+            placeholder={dailyCount >= MAX_DAILY_QUESTIONS ? "Лимит на сегодня исчерпан" : "Задайте любой вопрос..."}
             value={inputText}
             onChangeText={setInputText}
             multiline
+            editable={dailyCount < MAX_DAILY_QUESTIONS && !isTyping}
           />
           <TouchableOpacity
-            style={styles.sendButton}
+            style={[
+              styles.sendButton,
+              (dailyCount >= MAX_DAILY_QUESTIONS || isTyping) && styles.buttonDisabled
+            ]}
             onPress={sendMessage}
             activeOpacity={0.7}
+            disabled={dailyCount >= MAX_DAILY_QUESTIONS || isTyping}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
             <Send size={20} color={Colors.onPrimary} />
           </TouchableOpacity>
@@ -151,6 +246,16 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  limitInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: Spacing.marginMobile,
+    paddingTop: 8,
+  },
+  limitWarning: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   anonymousToggle: {
     flexDirection: 'row',
@@ -214,6 +319,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.matteGoldLow,
   },
+  typingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.marginMobile,
+    marginBottom: 8,
+  },
   inputContainer: {
     flexDirection: 'row',
     paddingHorizontal: Spacing.marginMobile,
@@ -232,6 +343,10 @@ const styles = StyleSheet.create({
     fontFamily: 'PlusJakartaSans_400Regular',
     maxHeight: 100,
   },
+  inputDisabled: {
+    backgroundColor: '#E0E0E0',
+    color: '#9E9E9E',
+  },
   sendButton: {
     width: 44,
     height: 44,
@@ -240,5 +355,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 12,
+  },
+  buttonDisabled: {
+    backgroundColor: Colors.outlineVariant,
   },
 });

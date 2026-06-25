@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TextProps, StyleSheet } from 'react-native';
-import { Colors, Typography } from '../constants/Theme';
+import { Colors, Typography } from '@/constants/Theme';
 
 interface ThemedTextProps extends TextProps {
   type?: keyof typeof Typography;

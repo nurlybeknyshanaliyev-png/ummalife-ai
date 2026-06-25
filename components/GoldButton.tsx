@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, TouchableOpacityProps, StyleSheet, View } from 'react-native';
-import { Colors, BorderRadius, Typography } from '../constants/Theme';
+import { Colors, BorderRadius, Typography } from '@/constants/Theme';
 import { ThemedText } from './ThemedText';
 
 interface GoldButtonProps extends TouchableOpacityProps {
